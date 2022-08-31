@@ -9,11 +9,11 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 mapboxgl.accessToken =
   'pk.eyJ1IjoiZ3NjcmlwdCIsImEiOiJjbDdnN2Z0cGUwMXNmM25vZnJnbHBmYXY1In0.webVjZGyliDaSaf7ZEAI9Q';
 
-export default function Map() {
+export default function Map(props) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
+  const [lng, setLng] = useState(-72.7592149);
+  const [lat, setLat] = useState(44.8179668);
   const [zoom, setZoom] = useState(9);
 
   const draw = new MapboxDraw({
@@ -51,7 +51,14 @@ export default function Map() {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
+    map.current.on('draw.create', props.onDraw);
+    map.current.on('draw.delete', props.onDraw);
+    map.current.on('draw.update', props.onDraw);
   });
 
   return <div ref={mapContainer} className="map-container" />;
 }
+
+Map.propTypes = {
+  onDraw: () => {}
+};

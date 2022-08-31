@@ -1,14 +1,20 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Map from './Map';
-import Sidebar from './Sidebar';
+import Map from '../Map';
+import Sidebar from '../Sidebar';
 
 export default function App() {
+  const [drawings, setDrawings] = useState();
+
+  const onDraw = (e, ...props) => {
+    console.log(e, props);
+    setDrawings(e);
+  };
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
@@ -34,10 +40,10 @@ export default function App() {
       >
         <Toolbar />
         <Container>
-          <Map />
+          <Map onDraw={onDraw} />
         </Container>
       </Grid>
-      <Sidebar />
+      <Sidebar drawings={drawings} />
     </Grid>
   );
 }
