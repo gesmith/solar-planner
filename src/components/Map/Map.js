@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import './Map.css';
-// eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -15,9 +14,9 @@ mapboxgl.accessToken =
 export default function Map({ onDraw }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-72.7592149);
+  const [lng, setLng] = useState(-70);
   const [lat, setLat] = useState(44.8179668);
-  const [zoom, setZoom] = useState(18);
+  const [zoom, setZoom] = useState(10);
 
   const draw = new MapboxDraw({
     displayControlsDefault: false,
@@ -56,7 +55,13 @@ export default function Map({ onDraw }) {
     map.current.on('draw.update', onDraw);
   });
 
-  return <div ref={mapContainer} className="map-container" />;
+  return (
+    <div
+      ref={mapContainer}
+      data-testid="map-container"
+      className="map-container"
+    />
+  );
 }
 
 Map.propTypes = {

@@ -1,4 +1,4 @@
-export default [
+const panels = [
   {
     id: 1,
     manufacturer: 'Q-CELLS',
@@ -20,3 +20,5 @@ export default [
     wattage: 580
   }
 ];
+
+export default panels;
