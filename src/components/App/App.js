@@ -35,6 +35,10 @@ export default function App() {
           </Toolbar>
         </MuiAppBar>
         <Grid
+          item
+          xs={12}
+          sm={6}
+          md={8}
           sx={{
             flexGrow: 1,
             height: '100vh'
