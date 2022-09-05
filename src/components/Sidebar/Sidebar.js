@@ -92,7 +92,11 @@ const Sidebar = ({ drawings }) => {
 
   const pvPanelSelect = () => {
     return pvpanels.map((panel) => (
-      <MenuItem value={panel.id} key={`${panel.id}-${panel.title}`}>
+      <MenuItem
+        value={panel.id}
+        key={`${panel.id}-${panel.title}`}
+        data-testid={`panelType-${panel.id}`}
+      >
         {panel.manufacturer} {panel.title}
       </MenuItem>
     ));
@@ -149,7 +153,7 @@ const Sidebar = ({ drawings }) => {
   };
 
   return (
-    <Grid item xs={12} sm={5} md={3} component={Paper} elevation={6} square>
+    <Grid item xs={12} sm={6} md={4} component={Paper} elevation={6} square>
       <Box
         sx={{
           my: 8,
@@ -175,7 +179,7 @@ const Sidebar = ({ drawings }) => {
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 in square meters
               </Typography>
-              <Typography variant="h5">
+              <Typography variant="h5" data-testid="areaInMeters">
                 {areaInMeters ? areaInMeters.toFixed(2) : 'No drawings found.'}
               </Typography>
             </CardContent>
@@ -188,7 +192,7 @@ const Sidebar = ({ drawings }) => {
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 DC power
               </Typography>
-              <Typography variant="h5">
+              <Typography variant="h5" data-testid="potentialCapacity">
                 {potentialCapacity
                   ? `${potentialCapacity} kW`
                   : 'Select a module.'}
@@ -210,6 +214,7 @@ const Sidebar = ({ drawings }) => {
                 id="panelType"
                 value={panelType}
                 label="Panel"
+                data-testid="panelType"
                 onChange={(e) => setPanelType(e.target.value)}
               >
                 {pvPanelSelect()}
@@ -222,6 +227,7 @@ const Sidebar = ({ drawings }) => {
                 id="moduleType"
                 value={moduleType}
                 label="Module Type"
+                data-testid="moduleType"
                 onChange={(e) => setModuleType(e.target.value)}
               >
                 <MenuItem value={0}>Standard</MenuItem>
@@ -236,6 +242,7 @@ const Sidebar = ({ drawings }) => {
                 id="arrayType"
                 value={arrayType}
                 label="Array Type"
+                data-testid="arrayType"
                 onChange={(e) => setArrayType(e.target.value)}
               >
                 <MenuItem value={0}>Fixed Open Rack</MenuItem>
@@ -248,6 +255,7 @@ const Sidebar = ({ drawings }) => {
               id="standard-basic"
               label="Tilt (degrees)"
               variant="filled"
+              data-testid="tilt"
               onChange={(e) => setTilt(e.target.value)}
               value={tilt}
             />
@@ -255,6 +263,7 @@ const Sidebar = ({ drawings }) => {
               id="standard-basic"
               label="Azimuth (degrees)"
               variant="filled"
+              data-testid="azimuth"
               onChange={(e) => setAzimuth(e.target.value)}
               value={azimuth}
             />
@@ -262,6 +271,7 @@ const Sidebar = ({ drawings }) => {
               id="standard-basic"
               label="Losses (%)"
               variant="filled"
+              data-testid="losses"
               onChange={(e) => setLosses(e.target.value)}
               value={losses}
             />
@@ -269,6 +279,7 @@ const Sidebar = ({ drawings }) => {
             <Button
               variant="contained"
               onClick={onClick}
+              data-testid="submit"
               disabled={
                 isLoading ||
                 !areaInMeters ||
@@ -279,7 +290,7 @@ const Sidebar = ({ drawings }) => {
               Calculate
             </Button>
             {data?.outputs?.ac_annual ? (
-              <Alert severity="success">
+              <Alert severity="success" data-testid="ac_annual">
                 Annual AC output: {data?.outputs?.ac_annual?.toFixed(2)} kWh
               </Alert>
             ) : null}
